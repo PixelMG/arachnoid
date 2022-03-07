@@ -77,12 +77,12 @@ this._spriteBatch.End();
 And that's basically it! You've got the basic building blocks of a game.
 
 ## Roadmap
-- [] Implement gamepad support
-- [] Implement touch support
-- [] Create basic documentation
-- [] Create logo
-- [] Implement tilemap support for popular tilemap formats
-- [] Add WebGL support
+- [ ] Implement gamepad support
+- [ ] Implement touch support
+- [ ] Create basic documentation
+- [ ] Create logo
+- [ ] Implement tilemap support for popular tilemap formats
+- [ ] Add WebGL support
 
 These are the current goals, not listed in any particular order. I'm hoping by the next update that I will have gamepad support implemented, as that is by far the easiest one to implement. I also plan on writing some actual documentation for this framework, so you can better understand how everything works.
 
