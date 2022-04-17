@@ -140,6 +140,76 @@ const Keyboard = new KeyboardManager();
 // list of keys on the keyboard.
 var Keys = {};
 
+// class for managing gamepad state and input
+class GamePadManager
+{
+    constructor()
+    {
+        this.Buttons =
+        {
+            A: {},
+            B: {},
+            X: {},
+            Y: {},
+            LeftBumber: {},
+            RightBumper: {},
+            LeftTrigger: {},
+            RightTrigger: {},
+            View: {},
+            Menu: {},
+            LeftStick: {},
+            RightStick: {},
+            DPadUp: {},
+            DPadDown: {},
+            DPadLeft: {},
+            DPadRight: {},
+            Home: {},
+            map: ["A", "B", "X", "Y", "LeftBumper", "RightBumper", "LeftTrigger", "RightTrigger", "View", "Menu", "LeftStick", "RightStick", "DPadUp", "DPadDown", "DPadLeft", "DPadRight", "Home"]
+        }
+    }
+
+    PollGamePads()
+    {
+        let gamepads = navigator.getGamepads();
+
+        for(let key in gamepads)
+        {
+            PlayerIndex[PlayerIndex.map[key]] = gamepads[key];
+        }
+        return;
+    }
+
+    GetState(index)
+    {
+        this.PollGamePads();
+        this.State = index;
+        // console.log(this.count);
+
+        if(index.buttons)
+        {
+            for(let key in index.buttons)
+            {
+                let button = index.buttons[key];
+                if(this.Buttons.map[key])
+                    this.Buttons[this.Buttons.map[key]] = button.pressed
+                else if(button.pressed)
+                {
+                    console.log(key);
+                }
+            }
+        }
+
+        return this;
+    }
+}
+const GamePad = new GamePadManager();
+
+// Just returning true or false for now.
+// I may change this later.
+const ButtonState = { Pressed: true, Released: false };
+
+var PlayerIndex = { One: { connected: false }, Two: { connected: false }, Three: { connected: false }, Four: { connected: false }, map: ["One", "Two", "Three", "Four"] };
+
 const Color =
 {
     CornFlowerBlue: "#6495ed"
@@ -148,6 +218,9 @@ const Color =
 document.body.style.margin = 0;
 document.body.style.maxHeight = document.documentElement.clientHeight + "px";
 
+// unfortunately, a side-effect of using JavaScript
+// is the requirement of attaching our event listeners
+// to the bottom of our code file.
 window.addEventListener("keydown", (e) =>
 {
     let key = e.key;
@@ -178,4 +251,10 @@ window.addEventListener("keyup", (e) =>
     
     Keys[key].isKeyDown = false;
     Keys[key].isKeyUp = true;
+});
+
+window.addEventListener("gamepadconnected", (e) =>
+{
+    PlayerIndex[PlayerIndex.map[e.gamepad.index]] = e.gamepad;
+    console.log(PlayerIndex.One);
 });
