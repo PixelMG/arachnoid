@@ -114,14 +114,31 @@ const Graphics =
     }
 }
 
-const Input =
+class KeyboardManager
 {
-    Keyboard:
+    constructor() {}
+
+    GetState()
     {
-        Keys: {}
-    },
-    GamePad: {} // todo: add gamepad support
+        return this;
+    }
+
+    IsKeyDown(key)
+    {
+        if(key == undefined)
+            return false;
+        return key.isKeyDown;
+    }
+
+    IsKeyUp(key)
+    {
+        return key.isKeyUp;
+    }
 }
+const Keyboard = new KeyboardManager();
+
+// list of keys on the keyboard.
+var Keys = {};
 
 const Color =
 {
@@ -139,8 +156,13 @@ window.addEventListener("keydown", (e) =>
         e.preventDefault();
         key = "Space";
     }
-    Input.Keyboard.Keys[key] = true;
-})
+
+    if(Keys[key] == undefined)
+        Keys[key] = {};
+    
+    Keys[key].isKeyDown = true;
+    Keys[key].isKeyUp = false;
+});
 
 window.addEventListener("keyup", (e) =>
 {
@@ -150,5 +172,10 @@ window.addEventListener("keyup", (e) =>
         e.preventDefault();
         key = "Space";
     }
-    Input.Keyboard.Keys[key] = false;
-})
+
+    if(Keys[key] == undefined)
+        Keys[key] = {};
+    
+    Keys[key].isKeyDown = false;
+    Keys[key].isKeyUp = true;
+});

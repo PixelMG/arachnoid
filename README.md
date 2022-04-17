@@ -48,8 +48,8 @@ Update = (gameTime) =>
 
 Input is handled through the `Input` class. For instance, you'll poll for keyboard input like this:
 ```
-let kInput = Input.Keyboard;
-if(kInput.Keys["Space"])
+let kInput = Keyboard.GetState();
+if(kInput.IsKeyDown(Keys.Space))
 {
   console.log("Hey, you pressed a key!");
 }

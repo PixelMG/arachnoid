@@ -23,8 +23,8 @@ class Game1 extends Game
     Update = (gameTime) =>
     {
         // todo: add update logic here
-        let kInput = Input.Keyboard;
-        if(kInput.Keys["Space"])
+        let kInput = Keyboard.GetState();
+        if(kInput.IsKeyDown(Keys.Space))
         {
             if(!this.audioPlaying && this.debounce < 1)
             {
